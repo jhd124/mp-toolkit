@@ -1,0 +1,3 @@
+export type Keys<O extends Record<string, any> | undefined> = O extends undefined ? never : (keyof O)[] 
+export type EventHandler = (...args: any[]) => any
+export type EventPoolDefine = Record<string, EventHandler>

@@ -23,25 +23,28 @@ SOFTWARE.
 declare namespace WechatMiniprogram.Page {
     type Instance<
         TData extends DataOption,
-        TCustom extends CustomOption
+        TCustom extends CustomOption,
+        TExtend extends CustomOption
     > = OptionalInterface<ILifetime> &
         InstanceProperties &
         InstanceMethods<TData> &
         Data<TData> &
-        TCustom
+        TCustom & 
+        TExtend
     type Options<
         TData extends DataOption,
-        TCustom extends CustomOption
+        TCustom extends CustomOption,
+        TExtend extends CustomOption,
     > = (TCustom &
         Partial<Data<TData>> &
         Partial<ILifetime> & {
             options?: Component.ComponentOptions
         }) &
-        ThisType<Instance<TData, TCustom>>
-    type TrivialInstance = Instance<IAnyObject, IAnyObject>
+        ThisType<Instance<TData, TCustom, TExtend>>
+    type TrivialInstance = Instance<IAnyObject, IAnyObject, IAnyObject>
     interface Constructor {
-        <TData extends DataOption, TCustom extends CustomOption>(
-            options: Options<TData, TCustom>
+        <TData extends DataOption, TCustom extends CustomOption, TExtend extends CustomOption>(
+            options: Options<TData, TCustom, TExtend>
         ): void
     }
     interface ILifetime {
@@ -244,7 +247,7 @@ declare namespace WechatMiniprogram.Page {
     }
 
     interface GetCurrentPages {
-        (): Array<Instance<IAnyObject, IAnyObject>>
+        (): Array<Instance<IAnyObject, IAnyObject, IAnyObject>>
     }
 }
 

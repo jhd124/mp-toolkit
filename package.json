@@ -1,0 +1,26 @@
+{
+  "name": "mp-toolkit",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhd124/mp-toolkit.git"
+  },
+  "keywords": [
+    "mini-program"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhd124/mp-toolkit/issues"
+  },
+  "homepage": "https://github.com/jhd124/mp-toolkit#readme",
+  "workspaces": [
+    "packages/chain"
+  ]
+  
+}
