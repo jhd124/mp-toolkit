@@ -12,7 +12,7 @@ export class EventBus<E extends EventPoolDefine> {
   public clearEvent(eventName: keyof E){
     this.pool[eventName].length = 0
   }
-  public addListener<K extends keyof E>(eventName: keyof E, handler: E[K]) {
+  public addListener<K extends keyof E, H extends E[K]>(eventName: keyof E, handler:H) {
     this.pool[eventName].push(handler)
     return () => this.removeListener(eventName, handler)
   }

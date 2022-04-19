@@ -1,1 +1,2 @@
 <view>hello world</view>
+<view>{{s}}</view>

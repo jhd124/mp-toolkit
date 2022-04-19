@@ -90,18 +90,14 @@ class ChainApp<
   private option
   constructor(option: WechatMiniprogram.App.Options<T>, eventBus: EventBus<E>){
     this.eventBus = eventBus
-    console.log('this.eventBus', eventBus, this.eventBus)
-    this.option = {
-      ...option,
-      $eventBus: eventBus
-    }
+    this.option = option
   }
-  public subscribeEvents(...args: Parameters<EventBusClass<E>['addListener']>){
-    EventBus.prototype.addListener(...args)
+
+  public subscribeEvents<K extends keyof E>(eventName: K, handler: E[K]){
     const {eventBus} = this
     const { onLaunch, onUnload } = this.option
     this.option.onLaunch = function(...onLaunchArgs){
-      eventBus.addListener(...args)
+      eventBus.addListener(eventName, handler)
       onLaunch?.call(this, ...onLaunchArgs)
     }
     return this
@@ -123,15 +119,18 @@ class ChainPage<
     this.eventBus = eventBus
     this.option = option
   }
-  public subscribeEvents(...args: Parameters<EventBusClass<E>['addListener']>){
+  public subscribeEvents<K extends keyof E>(eventName: K, handler: (this: WechatMiniprogram.Page.Instance<TData,TCustom,TExtend>, ...args: Parameters<E[K]>) => any){
     const {eventBus} = this
     const { onLoad, onUnload } = this.option
+    let unSubscribe = () => {}
     this.option.onLoad = function(...onLoadArgs){
-      eventBus.addListener(...args)
+      console.log('this', this)
+      const _handler = (...args: Parameters<E[K]>) => handler.call(this as WechatMiniprogram.Page.Instance<TData,TCustom,TExtend>, ...args)
+      unSubscribe = eventBus.addListener(eventName, _handler as E[K])
       onLoad?.call(this, ...onLoadArgs)
     }
     this.option.onUnload = function(...onLoadArgs) {
-      eventBus.removeListener(...args)
+      unSubscribe()
       onUnload?.call(this, ...onLoadArgs)
     }
     return this

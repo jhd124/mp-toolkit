@@ -3,16 +3,13 @@ import { chain } from "../../getChain"
 chain()
   .page({
     data: {
-      s: 's'
+      s: 0
     },
     onLoad(){
-      // var a: WechatMiniprogram.Page.InstanceProperties = {}
-
-      setTimeout(() => { this.$eventBus.emit('a', 200) }, 5000)
     }
   })
-  .subscribeEvents('a' , (n) => {
-    console.log(n)
+  .subscribeEvents('a' , function(n) {
+    this.setData({s: n})
   })
   .create()
 // Page({

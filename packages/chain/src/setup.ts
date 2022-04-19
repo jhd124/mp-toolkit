@@ -11,7 +11,6 @@ export function setup<O extends SetupOption>(options: {eventNames: Keys<O['event
   const eventBus = new EventBus<O['eventDefine']>(eventNames || [])
   return function chain(){
     const instance =  new Chain<O['eventDefine']>(eventBus)
-    console.log('instance', instance)
     return instance
   }
   // const {
