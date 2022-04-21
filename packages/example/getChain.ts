@@ -1,7 +1,10 @@
 import { setup } from "@mp-toolkit/chain"
 
-export const chain = setup<{eventDefine: {
+const mpToolkit = setup<{eventDefine: {
   a: (n: number) => void
 }}>({
-  eventNames: ['a']
+  eventNames: ['a'],
+  isDev: true
 })
+
+export const chain = mpToolkit.chain

@@ -243,14 +243,14 @@ declare namespace WechatMiniprogram.App {
         onThemeChange: OnThemeChangeCallback
     }
 
-    type Instance<T extends IAnyObject> = Option & T
-    type Options<T extends IAnyObject> = Partial<Option> &
+    type Instance<T extends IAnyObject, TExtend extends IAnyObject> = Option & T & TExtend
+    type Options<T extends IAnyObject, TExtend extends IAnyObject> = Partial<Option> &
         T &
-        ThisType<Instance<T>>
-    type TrivialInstance = Instance<IAnyObject>
+        ThisType<Instance<T, TExtend>>
+    type TrivialInstance = Instance<IAnyObject, IAnyObject>
 
     interface Constructor {
-        <T extends IAnyObject>(options: Options<T>): void
+        <T extends IAnyObject, TExtend extends IAnyObject>(options: Options<T, TExtend>): void
     }
 
     interface GetAppOption {
@@ -262,7 +262,7 @@ declare namespace WechatMiniprogram.App {
     }
 
     interface GetApp {
-        <T = IAnyObject>(opts?: GetAppOption): Instance<T>
+        <T = IAnyObject, TExtend = IAnyObject>(opts?: GetAppOption): Instance<T, TExtend>
     }
 }
 

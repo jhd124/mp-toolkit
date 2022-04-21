@@ -29,18 +29,39 @@ export class Chain<E extends EventPoolDefine> {
   constructor(eventBus: EventBus<E>){
     this.eventBus = eventBus
   }
-  public app<T extends WechatMiniprogram.IAnyObject>(option: WechatMiniprogram.App.Options<T>){
+  public app<T extends WechatMiniprogram.IAnyObject>(option: WechatMiniprogram.App.Options<T, {
+    $mpKit: {
+      eventBus: EventBus<E>
+    }
+  }>){
     this.constructorType = 'App'
-    return new ChainApp(option, this.eventBus)
+    return new ChainApp({
+      ...option,
+      $mpKit: {
+        eventBus: this.eventBus
+      }
+    }, this.eventBus)
   }
   public page<
     TData extends WechatMiniprogram.Page.DataOption, 
     TCustom extends WechatMiniprogram.Page.CustomOption,
-  >(option: WechatMiniprogram.Page.Options<TData, TCustom, {$eventBus: EventBus<E>}>){
+  >(
+    option: WechatMiniprogram.Page.Options<
+      TData,
+      TCustom, 
+      {
+        $mpKit: {
+          eventBus: EventBus<E>
+        }
+      }
+    >
+  ){
     this.constructorType = 'Page'
     return new ChainPage({
       ...option,
-      $eventBus: this.eventBus
+      $mpKit: {
+        eventBus: this.eventBus
+      }
     }, this.eventBus)
   }
   public component<
@@ -53,11 +74,21 @@ export class Chain<E extends EventPoolDefine> {
       TData,
       TProperty,
       TMethod,
+      {
+        $mpKit: {
+          eventBus: EventBus<E>
+        }
+      },
       TCustomInstanceProperty,
       TIsPage
   >){
     this.constructorType = 'Component'
-    return new ChainComponent(option, this.eventBus)
+    return new ChainComponent({
+      ...option,
+      $mpKit: {
+        eventBus: this.eventBus
+      }
+    }, this.eventBus)
   }
   // public registerEvents(){
     
@@ -84,11 +115,12 @@ export class Chain<E extends EventPoolDefine> {
 
 class ChainApp<
   T extends WechatMiniprogram.IAnyObject,
-  E extends EventPoolDefine
+  TExtend extends WechatMiniprogram.IAnyObject,
+  E extends EventPoolDefine,
 > {
   private eventBus
   private option
-  constructor(option: WechatMiniprogram.App.Options<T>, eventBus: EventBus<E>){
+  constructor(option: WechatMiniprogram.App.Options<T, TExtend>, eventBus: EventBus<E>){
     this.eventBus = eventBus
     this.option = option
   }
@@ -97,7 +129,8 @@ class ChainApp<
     const {eventBus} = this
     const { onLaunch, onUnload } = this.option
     this.option.onLaunch = function(...onLaunchArgs){
-      eventBus.addListener(eventName, handler)
+      const _handler = (...args: Parameters<E[K]>) => handler.call(this as WechatMiniprogram.App.Instance<T, TExtend>, ...args)
+      eventBus.addListener(eventName, _handler as E[K])
       onLaunch?.call(this, ...onLaunchArgs)
     }
     return this
@@ -124,8 +157,8 @@ class ChainPage<
     const { onLoad, onUnload } = this.option
     let unSubscribe = () => {}
     this.option.onLoad = function(...onLoadArgs){
-      console.log('this', this)
       const _handler = (...args: Parameters<E[K]>) => handler.call(this as WechatMiniprogram.Page.Instance<TData,TCustom,TExtend>, ...args)
+
       unSubscribe = eventBus.addListener(eventName, _handler as E[K])
       onLoad?.call(this, ...onLoadArgs)
     }
@@ -145,6 +178,7 @@ class ChainComponent<
   TData extends WechatMiniprogram.Component.DataOption,
   TProperty extends WechatMiniprogram.Component.PropertyOption,
   TMethod extends WechatMiniprogram.Component.MethodOption,
+  TExtend extends WechatMiniprogram.IAnyObject = {},
   TCustomInstanceProperty extends WechatMiniprogram.IAnyObject = {},
   TIsPage extends boolean = false,
 > {
@@ -154,14 +188,12 @@ class ChainComponent<
     TData,
     TProperty,
     TMethod,
+    TExtend,
     TCustomInstanceProperty,
     TIsPage
   >, eventBus: EventBus<E>) {
     this.eventBus = eventBus
-    this.option = {
-      ...option,
-      $eventBus: eventBus
-    }
+    this.option = option
   }
   public subscribeEvents(...args: Parameters<EventBusClass<E>['addListener']>){
     EventBus.prototype.addListener(...args)

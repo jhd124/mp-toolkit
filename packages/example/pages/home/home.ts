@@ -10,6 +10,7 @@ chain()
   })
   .subscribeEvents('a' , function(n) {
     this.setData({s: n})
+    this.$mpKit.eventBus
   })
   .create()
 // Page({

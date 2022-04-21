@@ -4,7 +4,7 @@ import { chain } from './getChain';
 chain().app({
   onLaunch(){
       setTimeout(() => { 
-        this
-        this.$eventBus.emit('a', 250) }, 2000)
+        this.$mpKit.eventBus.emit('a', 250) 
+      }, 2000)
   }
 }).create()
