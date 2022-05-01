@@ -3,6 +3,10 @@ let config = {
   debug: false,
 }
 
+/**
+ * ANCHOR def setConfig
+ * @param value config value
+ */
 export function setConfig(value: Partial<typeof config>){
   config = {
     ...config,
@@ -10,6 +14,10 @@ export function setConfig(value: Partial<typeof config>){
   }
 }
 
+/**
+ * 
+ * ANCHOR def getConfig
+ */
 export function getConfig(){
   return config
 }

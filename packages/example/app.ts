@@ -6,5 +6,13 @@ chain().app({
       setTimeout(() => { 
         this.$mpKit.eventBus.emit('a', 250) 
       }, 2000)
+      console.log('this', 'onLaunch')
+      this
   }
-}).create()
+}).subscribeEvents('a', function() {
+  console.log('this', this)
+  this
+})
+.create()
+
+

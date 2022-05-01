@@ -6,5 +6,5 @@ const mpToolkit = setup<{eventDefine: {
   eventNames: ['a'],
   isDev: true
 })
-
+console.log('mpToolkit', mpToolkit)
 export const chain = mpToolkit.chain

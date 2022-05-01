@@ -1,7 +1,7 @@
 import { Chain } from "./chain"
-import { setConfig } from "./config"
-import { EventBus } from "./event"
-import type { EventHandler, EventPoolDefine, Keys } from "./types"
+import { setConfig } from "../config"
+import { EventBus } from "../tool-kit/event-bus"
+import type { EventHandler, EventPoolDefine, Keys } from "../types"
 
 type SetupOption = {
   eventDefine: EventPoolDefine
@@ -21,17 +21,4 @@ export function setup<O extends SetupOption>(options: {eventNames: Keys<O['event
     },
     eventBus,
   }
-  // const {
-  //   eventNames = []
-  // } = options
-  // if(!eventBus){
-  //   type A = O["eventDefine"] extends undefined ? {} : O["eventDefine"]
-  //   type B = O["eventDefine"] extends undefined ? {} : O["eventDefine"]
-  //   eventBus = new EventBus<B>(eventNames)
-  // }
- 
-  // var c = 0
-  // var e: EventDefine = {onIncrease: (n: number) => {
-  //   c += 0
-  // }}
 }

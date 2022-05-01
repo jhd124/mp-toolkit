@@ -1,2 +1,5 @@
-<view>hello world</view>
+<view bind:tap="throttleTap">Throttle</view>
+<view bind:tap="debounceTap">Debounce</view>
+<view bind:tap="debounceLeadingTap">Debounce Leading</view>
 <view>{{s}}</view>
+<c />

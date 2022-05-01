@@ -1,5 +1,5 @@
-import { getConfig } from "./config"
-import type { EventHandler, EventPoolDefine, Keys, ModuleOptions } from "./types"
+import { getConfig } from "../config"
+import type { EventHandler, EventPoolDefine, Keys, ModuleOptions } from "../types"
 
 type ArrayValue<T extends Record<string, V>, V> = {[P in keyof T]: T[P][]}
 

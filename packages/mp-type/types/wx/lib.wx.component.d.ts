@@ -25,13 +25,12 @@ declare namespace WechatMiniprogram.Component {
         TData extends DataOption,
         TProperty extends PropertyOption,
         TMethod extends Partial<MethodOption>,
-        TExtend extends IAnyObject,
+        // TExtend extends IAnyObject,
         TCustomInstanceProperty extends IAnyObject = {},
         TIsPage extends boolean = false,
     > = InstanceProperties &
         InstanceMethods<TData> &
         TMethod &
-        TExtend &
         (TIsPage extends true ? Page.ILifetime : {}) &
         TCustomInstanceProperty & {
             /** 组件数据，**包括内部数据和属性值** */
@@ -50,7 +49,7 @@ declare namespace WechatMiniprogram.Component {
         TData extends DataOption,
         TProperty extends PropertyOption,
         TMethod extends MethodOption,
-        TExtend extends IAnyObject,
+        // TExtend extends IAnyObject,
         TCustomInstanceProperty extends IAnyObject = {},
         TIsPage extends boolean = false,
     > = Partial<Data<TData>> &
@@ -63,11 +62,11 @@ declare namespace WechatMiniprogram.Component {
                 TData,
                 TProperty,
                 TMethod,
-                TExtend,
+                // TExtend,
                 TCustomInstanceProperty,
                 TIsPage
             >
-        > & TExtend
+        >
     interface Constructor {
         <
             TData extends DataOption,
@@ -75,13 +74,13 @@ declare namespace WechatMiniprogram.Component {
             TMethod extends MethodOption,
             TCustomInstanceProperty extends IAnyObject = {},
             TIsPage extends boolean = false,
-            TExtend extends IAnyObject = {},
+            // TExtend extends IAnyObject = {},
         >(
             options: Options<
                 TData,
                 TProperty,
                 TMethod,
-                TExtend,
+                // TExtend,
                 TCustomInstanceProperty,
                 TIsPage
             >
