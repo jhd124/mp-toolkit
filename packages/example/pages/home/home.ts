@@ -1,6 +1,6 @@
 import { chain } from "../../getChain"
 
-const c = chain()
+
 //    ^?
 
 chain()
@@ -17,6 +17,7 @@ chain()
   .subscribeEvents('a' , function(n) {
     this.setData({s: n})
     this.$mpKit.eventBus
+    this.$mpKit.stateStore
   })
   .throttle({
     throttleTap: {
@@ -43,5 +44,8 @@ chain()
       },
       time: 500
     }
+  })
+  .subscribeState(state => {
+    console.log(state)
   })
   .create()

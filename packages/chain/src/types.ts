@@ -2,3 +2,4 @@ export type Keys<O extends Record<string, any> | undefined> = O extends undefine
 export type EventHandler<T = unknown> = (this: T, ...args: any[]) => any
 export type EventPoolDefine = Record<string, EventHandler>
 export type ModuleOptions = {isDev?: boolean, debug?: boolean}
+export type TStoreState = Record<string, any>
