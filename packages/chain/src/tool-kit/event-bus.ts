@@ -10,7 +10,6 @@ export class EventBus<E extends EventPoolDefine> {
   private options
   public constructor(eventDefine: E, options: ModuleOptions = {isDev: false, debug: false}){
     const eventNames = Object.keys(eventDefine)
-    console.log('eventNames', eventNames)
     this.pool = eventNames.reduce<
       ArrayValue<E, EventHandler>
     >((acc, cur) => ({...acc, [cur]: []}), {} as ArrayValue<E, EventHandler>)
