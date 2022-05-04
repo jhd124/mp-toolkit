@@ -6,7 +6,7 @@ import { TStoreState } from "../types"
  * subscribe
  * 
  */
-export class StateStore<State extends TStoreState = {}> {
+export class StateStore<State extends TStoreState> {
   private listeners: ((state: State) => void)[]
   public state: State
   constructor(initData: State){

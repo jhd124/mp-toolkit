@@ -11,13 +11,14 @@ chain()
     methods: {
       onLoad(){
         console.log('onLoad', this)
+        this.$mpKit.stateStore.state
       }
     },
   })
   .subscribeEvents('a' , function(n) {
     this.setData({s: n})
-    this.$mpKit.eventBus
-    this.$mpKit.stateStore
+    // this.$mpKit.eventBus.emit('b', '')
+    // this.$mpKit.stateStore
   })
   .throttle({
     throttleTap: {
@@ -39,13 +40,12 @@ chain()
     },
     debounceTap: {
       method(e){
-        console.log('this', this)
         console.log('点击了debounce', e)
       },
       time: 500
     }
   })
-  .subscribeState(state => {
-    console.log(state)
+  .subscribeState(function(state) {
+    console.log('subscribeState', this, state)
   })
   .create()

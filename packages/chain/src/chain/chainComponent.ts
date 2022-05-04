@@ -1,6 +1,7 @@
 import { EventBus, throttle, debounce } from "../tool-kit"
 import { StateStore } from "../tool-kit/state-store"
 import { EventPoolDefine, TStoreState } from "../types"
+import { MPToolKitOptionProperties } from "./types"
 import { createMissingWarning } from "./warn-create"
 
 interface LifetimesVisitors<TThis> {
@@ -14,7 +15,6 @@ interface LifetimesVisitors<TThis> {
 export class ChainComponent<
   E extends EventPoolDefine,
   S extends TStoreState,
-  Store extends StateStore<S>,
   TData extends WechatMiniprogram.Component.DataOption,
   TProperty extends WechatMiniprogram.Component.PropertyOption,
   TMethod extends WechatMiniprogram.Component.MethodOption,
@@ -22,12 +22,7 @@ export class ChainComponent<
     TData,
     TProperty,
     TMethod,
-    TCustomInstanceProperty & {
-      $mpKit: {
-        eventBus: EventBus<E>
-        stateStore: Store
-      }
-    },
+    TCustomInstanceProperty & MPToolKitOptionProperties<E, S>,
     TIsPage
   >,
   TCustomInstanceProperty extends WechatMiniprogram.IAnyObject = {},
@@ -42,16 +37,11 @@ export class ChainComponent<
       TData,
       TProperty,
       TMethod,
-      TCustomInstanceProperty & {
-        $mpKit: {
-          eventBus: EventBus<E>
-          stateStore: Store
-        }
-      },
+      TCustomInstanceProperty & MPToolKitOptionProperties<E, S>,
       TIsPage
     >, 
     eventBus: EventBus<E>,
-    stateStore: Store,
+    stateStore: StateStore<S>,
     isPage: TIsPage
   ) {
     this.eventBus = eventBus
@@ -83,13 +73,15 @@ export class ChainComponent<
       // @ts-ignore
       option.methods = {
         ...(methods || {}),
-        onLoad: function(...onLoadArgs){
-          originalOnLoad?.(...onLoadArgs)
+        onLoad(...onLoadArgs){
           visitors.onLoad.call(this as TThis)
+          // @ts-ignore
+          originalOnLoad?.call(this, ...onLoadArgs)
         },
-        onUnload: function(){
-          originalOnUnload?.()
+        onUnload(){
           visitors.onUnload.call(this as TThis)
+          // @ts-ignore
+          originalOnUnload?.call(this)
         }
       }
     } else {
@@ -98,12 +90,12 @@ export class ChainComponent<
       option.lifetimes = {
         ...(lifetimes || {}),
         attached: function(){
-          originalAttached?.()
           visitors.attached.call(this as TThis)
+          originalAttached?.call(this)
         },
         detached: function(){
-          originalDetached?.()
           visitors.detached.call(this as TThis)
+          originalDetached?.call(this)
         }
       }
     }
@@ -112,7 +104,10 @@ export class ChainComponent<
   // def subscribeEvents
   public subscribeEvents<
     K extends keyof E
-  >(eventName: K, handler: (this: TThis, ...args: Parameters<E[K]>) => any){
+  >(
+    eventName: K, 
+    handler: (this: TThis, ...args: Parameters<E[K]>) => any
+  ){
     const { eventBus } = this
     let unSubscribe = () => {}
 
@@ -179,18 +174,18 @@ export class ChainComponent<
     return this
   }
 
-  public subscribeState(handler: (state: S) => any){
+  public subscribeState(handler: (this: TThis, state: S) => void){
     let unSubscribeHandler: () => void
     const { stateStore } = this
     this.lifetimesTraverse({
       onLoad(){
-        unSubscribeHandler = stateStore.subscribe(handler)
+        unSubscribeHandler = stateStore.subscribe(handler.bind(this))
       },
       onUnload(){
         unSubscribeHandler()
       },
       attached(){
-        unSubscribeHandler = stateStore.subscribe(handler)
+        unSubscribeHandler = stateStore.subscribe(handler.bind(this))
       },
       detached(){
         unSubscribeHandler()
@@ -200,6 +195,7 @@ export class ChainComponent<
   }
 
   public create(){
+    console.log('this.option', this.option)
     return Component(this.option)
   }
 }

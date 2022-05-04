@@ -2,4 +2,4 @@
 <view bind:tap="debounceTap">Debounce</view>
 <view bind:tap="debounceLeadingTap">Debounce Leading</view>
 <view>{{s}}</view>
-<c />
+<!-- <c /> -->

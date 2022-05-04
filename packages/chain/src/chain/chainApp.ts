@@ -11,7 +11,6 @@ interface LifetimesVisitors<TThis> {
 export class ChainApp<
   E extends EventPoolDefine,
   S extends TStoreState,
-  Store extends StateStore<S>,
   T extends WechatMiniprogram.IAnyObject,
   TExtend extends WechatMiniprogram.IAnyObject,
   TThis extends WechatMiniprogram.App.Instance<T, TExtend>
@@ -22,7 +21,7 @@ export class ChainApp<
   constructor(
     option: WechatMiniprogram.App.Options<T, TExtend>, 
     eventBus: EventBus<E>,
-    stateStore: Store
+    stateStore: StateStore<S>
   ){
     this.eventBus = eventBus
     this.stateStore = stateStore
@@ -38,8 +37,8 @@ export class ChainApp<
   private lifetimesTraverse(visitors: LifetimesVisitors<TThis>){
     const { onLaunch } = this.option
     this.option.onLaunch = function(...onLaunchArgs){
-      visitors.onLaunch.call(this as TThis)
       onLaunch?.call(this, ...onLaunchArgs)
+      visitors.onLaunch.call(this as TThis)
     }
   }
 

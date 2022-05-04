@@ -4,19 +4,21 @@ import { ChainApp } from './chainApp'
 import { ChainComponent } from './chainComponent'
 import { TStoreState } from '../types'
 import { StateStore } from '../tool-kit/state-store'
+import { MPToolKitOptionProperties } from './types'
 
-export class Chain<E extends EventPoolDefine> {
+export class Chain<E extends EventPoolDefine, S extends TStoreState> {
   private eventBus
   private stateStore
 
-  constructor(eventBus: EventBus<E>, stateStore: StateStore){
+  constructor(eventBus: EventBus<E>, stateStore: StateStore<S>){
     this.eventBus = eventBus
     this.stateStore = stateStore
   }
 
   public app<T extends WechatMiniprogram.IAnyObject>(option: WechatMiniprogram.App.Options<T, {
     $mpKit: {
-      eventBus: EventBus<E>
+      eventBus: EventBus<E>,
+      stateStore: StateStore<S>,
     }
   }>){
     return new ChainApp(
@@ -37,11 +39,7 @@ export class Chain<E extends EventPoolDefine> {
       TData,
       TProperty,
       TMethod,
-      TCustomInstanceProperty & {
-        $mpKit: {
-          eventBus: EventBus<E>
-        }
-      },
+      TCustomInstanceProperty & MPToolKitOptionProperties<E, S>,
       true
   >) {
     return new ChainComponent(
@@ -63,11 +61,7 @@ export class Chain<E extends EventPoolDefine> {
       TData,
       TProperty,
       TMethod,
-      TCustomInstanceProperty & {
-        $mpKit: {
-          eventBus: EventBus<E>
-        }
-      },
+      TCustomInstanceProperty & MPToolKitOptionProperties<E, S>,
       false
   >){
     return new ChainComponent(
