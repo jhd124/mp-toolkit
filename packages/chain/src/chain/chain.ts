@@ -1,18 +1,19 @@
 import type { EventPoolDefine } from '../types'
 import type { EventBus } from '../tool-kit/event-bus'
+import type { MPToolKitOptionProperties, ProcessFunction } from './types'
 import { ChainApp } from './chainApp'
 import { ChainComponent } from './chainComponent'
-import { TStoreState } from '../types'
+import { StoreStateDefine } from '../types'
 import { StateStore } from '../tool-kit/state-store'
-import { MPToolKitOptionProperties } from './types'
-
-export class Chain<E extends EventPoolDefine, S extends TStoreState> {
+export class Chain<E extends EventPoolDefine, S extends StoreStateDefine> {
   private eventBus
   private stateStore
+  private componentOptionInterceptor
 
-  constructor(eventBus: EventBus<E>, stateStore: StateStore<S>){
+  constructor(eventBus: EventBus<E>, stateStore: StateStore<S>, componentOptionInterceptor?: ProcessFunction){
     this.eventBus = eventBus
     this.stateStore = stateStore
+    this.componentOptionInterceptor = componentOptionInterceptor
   }
 
   public app<T extends WechatMiniprogram.IAnyObject>(option: WechatMiniprogram.App.Options<T, {
@@ -48,7 +49,8 @@ export class Chain<E extends EventPoolDefine, S extends TStoreState> {
       }, 
       this.eventBus,
       this.stateStore,
-      true
+      true,
+      this.componentOptionInterceptor,
     )
   }
 
@@ -70,7 +72,8 @@ export class Chain<E extends EventPoolDefine, S extends TStoreState> {
       }, 
       this.eventBus,
       this.stateStore,
-      false
+      false,
+      this.componentOptionInterceptor
     )
   }
 }

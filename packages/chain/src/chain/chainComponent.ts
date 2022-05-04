@@ -1,7 +1,7 @@
 import { EventBus, throttle, debounce } from "../tool-kit"
 import { StateStore } from "../tool-kit/state-store"
-import { EventPoolDefine, TStoreState } from "../types"
-import { MPToolKitOptionProperties } from "./types"
+import { EventPoolDefine, StoreStateDefine } from "../types"
+import { MPToolKitOptionProperties, ProcessFunction } from "./types"
 import { createMissingWarning } from "./warn-create"
 
 interface LifetimesVisitors<TThis> {
@@ -11,10 +11,10 @@ interface LifetimesVisitors<TThis> {
   detached(this: TThis): void
 }
 
-@createMissingWarning
+// @createMissingWarning
 export class ChainComponent<
   E extends EventPoolDefine,
-  S extends TStoreState,
+  S extends StoreStateDefine,
   TData extends WechatMiniprogram.Component.DataOption,
   TProperty extends WechatMiniprogram.Component.PropertyOption,
   TMethod extends WechatMiniprogram.Component.MethodOption,
@@ -32,6 +32,7 @@ export class ChainComponent<
   private stateStore
   private option
   private isPage
+  private componentOptionInterceptor
   constructor(
     option: WechatMiniprogram.Component.Options<
       TData,
@@ -42,12 +43,14 @@ export class ChainComponent<
     >, 
     eventBus: EventBus<E>,
     stateStore: StateStore<S>,
-    isPage: TIsPage
+    isPage: TIsPage,
+    componentOptionInterceptor?: ProcessFunction
   ) {
     this.eventBus = eventBus
     this.option = option
     this.stateStore = stateStore
     this.isPage = isPage
+    this.componentOptionInterceptor = componentOptionInterceptor
     const mpKit = {
       eventBus,
       stateStore,
@@ -195,7 +198,7 @@ export class ChainComponent<
   }
 
   public create(){
-    console.log('this.option', this.option)
-    return Component(this.option)
+    const options = this.componentOptionInterceptor?.(this.option) || this.option
+    return Component(options)
   }
 }

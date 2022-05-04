@@ -1,16 +1,16 @@
 import { EventBus } from "../tool-kit"
 import { StateStore } from "../tool-kit/state-store"
-import { EventPoolDefine, TStoreState } from "../types"
+import { EventPoolDefine, StoreStateDefine } from "../types"
 import { createMissingWarning } from "./warn-create"
 
 interface LifetimesVisitors<TThis> {
   onLaunch(this: TThis): void
 }
 
-@createMissingWarning
+// @createMissingWarning
 export class ChainApp<
   E extends EventPoolDefine,
-  S extends TStoreState,
+  S extends StoreStateDefine,
   T extends WechatMiniprogram.IAnyObject,
   TExtend extends WechatMiniprogram.IAnyObject,
   TThis extends WechatMiniprogram.App.Instance<T, TExtend>

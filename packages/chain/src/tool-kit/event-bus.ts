@@ -6,9 +6,11 @@ type ArrayValue<T extends Record<string, V>, V> = {[P in keyof T]: T[P][]}
 const WARNING_HANDLER_COUNT = 10
 
 export class EventBus<E extends EventPoolDefine> {
-  private pool: ArrayValue<E, EventHandler>
-  private options: ModuleOptions
-  public constructor(eventNames: Keys<E>, options: ModuleOptions = {isDev: false, debug: false}){
+  private pool
+  private options
+  public constructor(eventDefine: E, options: ModuleOptions = {isDev: false, debug: false}){
+    const eventNames = Object.keys(eventDefine)
+    console.log('eventNames', eventNames)
     this.pool = eventNames.reduce<
       ArrayValue<E, EventHandler>
     >((acc, cur) => ({...acc, [cur]: []}), {} as ArrayValue<E, EventHandler>)

@@ -1,13 +1,15 @@
 import { EventBus } from "../tool-kit"
 import { StateStore } from "../tool-kit/state-store"
-import { EventPoolDefine, TStoreState } from "../types"
+import { EventPoolDefine, StoreStateDefine } from "../types"
 
 export type MPToolKitOptionProperties<
   E extends EventPoolDefine,
-  S extends TStoreState
+  S extends StoreStateDefine
 > = {
   $mpKit: {
     eventBus: EventBus<E>
     stateStore: StateStore<S>
   }
 }
+
+export type ProcessFunction = <T = any>(Options: T) => T

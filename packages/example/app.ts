@@ -4,9 +4,12 @@ import { chain } from './getChain';
 chain()
   .app({
     onLaunch(){
+      debugger
         setTimeout(() => { 
-          this.$mpKit.eventBus.emit('a', 250) 
+          console.log('this', this)
+          this.$mpKit.eventBus.emit('a', 250, 's') 
         }, 2000)
+        this.$mpKit.eventBus.emit('a', 250, 's') 
         console.log('this', 'onLaunch')
         this
     }

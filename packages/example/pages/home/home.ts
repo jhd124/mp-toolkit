@@ -17,7 +17,7 @@ chain()
   })
   .subscribeEvents('a' , function(n) {
     this.setData({s: n})
-    // this.$mpKit.eventBus.emit('b', '')
+    // this.$mpKit.eventBus.emit('a', 1,'s')
     // this.$mpKit.stateStore
   })
   .throttle({

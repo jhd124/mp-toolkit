@@ -7,12 +7,17 @@ const initialState = {
   }
 }
 
-const mpToolkit = setup<{
-    a: (n: number) => void
-    b: (s: string) => void
-  }, typeof initialState>({
-  eventNames: ['a'],
+const eventDefine = {
+  a: (n: number, s: string) => {n;s}
+}
+
+const mpToolkit = setup({
+  eventDefine,
   initialState,
+  componentOptionInterceptor(option: any){
+    console.log('option', option)
+    return option
+  },
   isDev: true
 })
 console.log('mpToolkit', mpToolkit)

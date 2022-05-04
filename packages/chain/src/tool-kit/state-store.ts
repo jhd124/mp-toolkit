@@ -1,4 +1,4 @@
-import { TStoreState } from "../types"
+import { StoreStateDefine } from "../types"
 
 /**
  * init
@@ -6,10 +6,10 @@ import { TStoreState } from "../types"
  * subscribe
  * 
  */
-export class StateStore<State extends TStoreState> {
+export class StateStore<State extends StoreStateDefine> {
   private listeners: ((state: State) => void)[]
-  public state: State
-  constructor(initData: State){
+  public state
+  constructor(initData: State | undefined){
     if(Object.prototype.toString.call(initData) === '[object Object]') {
       this.state = Object.freeze({...initData})
     } else {
@@ -28,7 +28,6 @@ export class StateStore<State extends TStoreState> {
     for(const key in state){
       if(Object.prototype.hasOwnProperty.call(nextState, key)){
         if(state[key]){
-          // @ts-expect-error partial key 应该在完成对象上存在
           nextState[key] = state[key]
         }
       }
