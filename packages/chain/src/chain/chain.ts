@@ -73,7 +73,7 @@ export class Chain<E extends EventPoolDefine, S extends StoreStateDefine> {
       this.eventBus,
       this.stateStore,
       false,
-      this.componentOptionInterceptor
+      this.componentOptionInterceptor,
     )
   }
 }

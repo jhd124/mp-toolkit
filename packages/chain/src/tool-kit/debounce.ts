@@ -1,6 +1,6 @@
 export function debounce<T extends (...args: any[]) => any>(fn: T, time: number, options: {leading: boolean} = {leading: false}){
   let lastInvokeTime: number = 0
-  let timer: number | null = null
+  let timer: NodeJS.Timeout | null = null
   const { leading } = options
   return function(this: any, ...args: Parameters<T>){
     const previousInvokeTime = lastInvokeTime
