@@ -1,8 +1,8 @@
 import type { EventPoolDefine } from '../types'
 import type { EventBus } from '../tool-kit/event-bus'
 import type { MPToolKitOptionProperties, ProcessFunction } from './types'
-import { ChainApp } from './chainApp'
-import { ChainComponent } from './chainComponent'
+import { ChainApp } from './chain-app'
+import { ChainComponent } from './chain-component'
 import { StoreStateDefine } from '../types'
 import { StateStore } from '../tool-kit/state-store'
 export class Chain<E extends EventPoolDefine, S extends StoreStateDefine> {
