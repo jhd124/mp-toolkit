@@ -34,6 +34,12 @@ importers:
     dependencies:
       '@mp-toolkit/chain': link:../chain
 
+  packages/mp-mock:
+    specifiers:
+      '@mp-toolkit/mp-type': workspace:^3.4.6
+    dependencies:
+      '@mp-toolkit/mp-type': link:../mp-type
+
   packages/mp-type:
     specifiers:
       '@typescript-eslint/eslint-plugin': ^4.15.2
