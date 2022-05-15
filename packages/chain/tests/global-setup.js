@@ -4,3 +4,4 @@ module.exports = function(){
   globalThis.App = App
   console.log('[[[[[[[[setup]]]]]]]]')
 }
+

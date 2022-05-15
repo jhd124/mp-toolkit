@@ -21,6 +21,9 @@
   "homepage": "https://github.com/jhd124/mp-toolkit#readme",
   "workspaces": [
     "packages/chain"
-  ]
-  
+  ],
+  "devDependencies": {
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^15.0.0"
+  }
 }
