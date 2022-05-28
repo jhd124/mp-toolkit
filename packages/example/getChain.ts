@@ -20,5 +20,5 @@ const mpToolkit = setup({
   },
   isDev: true
 })
-console.log('mpToolkit', mpToolkit)
+
 export const chain = mpToolkit.chain

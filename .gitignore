@@ -1,3 +1,4 @@
 node_modules
 dist
 miniprogram_npm
+tsconfig.tsbuildinfo

@@ -58,7 +58,8 @@ export class ChainApp<
     const { stateStore } = this
     this.lifetimesTraverse({
       onLaunch(){
-        unSubscribeHandler = stateStore.subscribe(handler)
+        const _handler = (state: S) => handler.call(this as TThis, state)
+        unSubscribeHandler = stateStore.subscribe(_handler)
       },
     })
     return this

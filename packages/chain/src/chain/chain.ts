@@ -5,6 +5,8 @@ import { ChainApp } from './chain-app'
 import { ChainComponent } from './chain-component'
 import { StoreStateDefine } from '../types'
 import { StateStore } from '../tool-kit/state-store'
+
+
 export class Chain<E extends EventPoolDefine, S extends StoreStateDefine> {
   private eventBus
   private stateStore

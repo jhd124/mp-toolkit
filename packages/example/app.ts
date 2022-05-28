@@ -4,18 +4,16 @@ import { chain } from './getChain';
 chain()
   .app({
     onLaunch(){
-      debugger
-        setTimeout(() => { 
-          console.log('this', this)
-          this.$mpKit.eventBus.emit('a', 250, 's') 
-        }, 2000)
+      setTimeout(() => { 
+        console.log('this', this)
         this.$mpKit.eventBus.emit('a', 250, 's') 
-        console.log('this', 'onLaunch')
-        this
+      }, 2000)
     }
   })
+  .subscribeEvents('a', function(a){
+    a
+  })
   .subscribeEvents('a', function() {
-    console.log('this', this)
     this.$mpKit
   })
   .create()

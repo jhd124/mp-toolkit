@@ -15,7 +15,9 @@ chain()
       }
     },
   })
+  .subscribeEvents('a', function(){})
   .subscribeEvents('a' , function(n) {
+    console.log('[[[[[[[this]]]]]]]', this)
     this.setData({s: n})
     // this.$mpKit.eventBus.emit('a', 1,'s')
     // this.$mpKit.stateStore

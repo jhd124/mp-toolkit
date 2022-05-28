@@ -2,11 +2,11 @@ import { debounce } from '../src/tool-kit/debounce'
 import { wait } from './utils'
 
 describe('测试tail debounce', () => {
-  let fn
   const mock = jest.fn()
+  let fn = debounce(mock, 500)
   beforeEach(() => {
     fn = debounce(mock, 500)
-    mock.mockReset()
+    mock.mockClear()
   })
   test('连续5次调用debounce后的函数，原函数只被调用一次', async () => {
     fn(0);
@@ -30,11 +30,11 @@ describe('测试tail debounce', () => {
 })
 
 describe('测试lead debounce', () => {
-  let fn
   const mock = jest.fn()
+  let fn = debounce(mock, 500, {leading: true})
   beforeEach(() => {
     fn = debounce(mock, 500, {leading: true})
-    mock.mockReset()
+    mock.mockClear()
   })
   test('连续5次调用debounce后的函数，原函数只被调用一次', () => {
     fn(0);

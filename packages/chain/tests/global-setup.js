@@ -1,7 +1,8 @@
 const { App } = require("./mocks/app")
+const { Component } = require("./mocks/component")
 
 module.exports = function(){
   globalThis.App = App
-  console.log('[[[[[[[[setup]]]]]]]]')
+  globalThis.Component = Component
 }
 

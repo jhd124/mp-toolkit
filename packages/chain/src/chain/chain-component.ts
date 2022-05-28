@@ -77,14 +77,14 @@ export class ChainComponent<
       option.methods = {
         ...(methods || {}),
         onLoad(...onLoadArgs){
-          visitors.onLoad.call(this as TThis)
           // @ts-ignore
           originalOnLoad?.call(this, ...onLoadArgs)
+          visitors.onLoad.call(this as TThis)
         },
         onUnload(){
-          visitors.onUnload.call(this as TThis)
           // @ts-ignore
           originalOnUnload?.call(this)
+          visitors.onUnload.call(this as TThis)
         }
       }
     } else {
