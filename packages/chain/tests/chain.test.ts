@@ -15,9 +15,10 @@ describe('测试Chain', () => {
   }
   let chain: Chain<typeof eventDefine, typeof initialState>
   let eventBus: EventBus<typeof eventDefine>
+  let stateStore: StateStore<typeof initialState>
   beforeEach(() => {
     eventBus = new EventBus(eventDefine)
-    const stateStore = new StateStore(initialState)
+    stateStore = new StateStore(initialState)
     chain = new Chain(eventBus, stateStore)
 
   })
@@ -230,6 +231,71 @@ describe('测试Chain', () => {
     expect(stateListener.mock.calls[0]).toEqual([initialState])
     expect(debounce).toBeCalledWith('arg')
     expect(throttle).toBeCalledWith('arg')
+  })
+
+  test('componentOptionInterceptor', () => {
+    let onLoadSpyThis: any
+    let attachedSpyThis: any
+    const onLoadSpy = jest.fn(function(this: any) {
+      onLoadSpyThis = this
+    })
+    const attachedSpy = jest.fn(function(this: any){
+      attachedSpyThis = this
+    })
+
+    let onLoadThis: any
+    let attachedThis: any
+    const onLoad = jest.fn(function(this: any) {
+      onLoadThis = this
+    })
+    const attached = jest.fn(function(this: any){
+      attachedThis = this
+    })
+
+    new Chain(eventBus, stateStore, function(option){
+      const originalAttached = option.lifetimes?.attached
+      const originalOnload = option.methods?.onLoad
+      option={
+        ...option,
+        lifetimes: {
+          attached(){
+            attachedSpy.call(this)
+            originalAttached?.call(this)
+          }
+        },
+        methods: {
+          ...(option.methods || {}),
+          onLoad(...args: any[]){
+            onLoadSpy.call(this)
+            originalOnload?.call(this, ...args)
+          } 
+        }
+      }
+
+      return option
+    })
+    .page({
+      lifetimes: {
+        attached
+      },
+      methods: {
+        onLoad
+      }
+    })
+    .create()
+
+    expect(onLoad).toBeCalledWith('a=1')
+
+    expect(attached).toHaveBeenCalled()
+    expect(attachedSpy).toHaveBeenCalled()
+
+    expect(onLoadSpyThis.isInAppClassInstance).toBe(true)
+    expect(attachedSpyThis.isInAppClassInstance).toBe(true)
+    expect(onLoadThis.isInAppClassInstance).toBe(true)
+    expect(attachedThis.isInAppClassInstance).toBe(true)
+
+
+
   })
 
 

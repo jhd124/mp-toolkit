@@ -31,10 +31,78 @@ Mp-toolkit 是一个原生微信小程序工具库，让原生小程序开发更
 
 使用 mp-toolkit，你可以轻松地：
 
-- 注册/监听全局事件
+- 注册、监听、派发全局事件
 - 管理全局状态
 - 注册防抖函数
 - 注册节流函数
+
+基本用法
+
+```typescript
+// setup-mp-toolkit.ts
+
+import { setup } from "@mp-toolkit/";
+
+const eventDefine = {
+  onSearch: (keyWord: string) => {},
+};
+
+const initialState = {
+  todoList: [
+    {
+      status: "TO_BE_ADD",
+      description: "",
+    },
+  ],
+};
+
+const mpToolkit = setup({
+  eventDefine,
+  initialState,
+});
+
+export const chain = mpToolkit.chain;
+```
+
+```typescript
+// app.ts
+import { chain } from "./setup-mp-toolkit";
+
+chain()
+  .app({
+    // 同原生小程序App方法的参数
+    launch() {},
+  })
+  .create();
+```
+
+```typescript
+// page.ts
+import { chain } from "./setup-mp-toolkit";
+
+chain()
+  .page({
+    // 同原生小程序Component方法的参数
+    methods: {
+      onLoad() {},
+    },
+  })
+  .debounce({
+    someActionDebounced: {
+      method() {},
+      time: 1000,
+    },
+  })
+  .throttle({
+    someActionThrottled: {
+      method() {},
+      time: 60,
+    },
+  })
+  .create();
+```
+
+[示例小程序](https://developers.weixin.qq.com/s/hUn30BmO71zs)
 
 Short on time? Check out our [5-minute tutorial ⏱️](https://tutorial.docusaurus.io)!
 

@@ -12,4 +12,4 @@ export type MPToolKitOptionProperties<
   }
 }
 
-export type ProcessFunction = <T = any>(Options: T) => T
+export type ProcessFunction = <T extends WechatMiniprogram.Component.TrivialOption>(Options: T) => T

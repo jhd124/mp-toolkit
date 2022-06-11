@@ -1,16 +1,15 @@
 import { Chain } from "./chain"
 import { setConfig } from "../config"
 import { EventBus } from "../tool-kit/event-bus"
-import type { EventPoolDefine, Keys, StoreStateDefine } from "../types"
+import type { EventPoolDefine, StoreStateDefine } from "../types"
 import { StateStore } from "../tool-kit/state-store"
-import { MPToolKitOptionProperties } from "./types"
 
 export function setup<
   EventDefine extends EventPoolDefine = {}, 
   StateDefine extends StoreStateDefine = {}
 >(
   options: {
-    eventDefine: EventDefine, 
+    eventDefine?: EventDefine, 
     initialState?: StateDefine,
     isDev?: boolean, 
     debug?: boolean,
@@ -24,8 +23,8 @@ export function setup<
     isDev = false,
     debug = false
   } = options
-  const eventBus = new EventBus(eventDefine)
-  const stateStore = new StateStore<StateDefine>(initialState)
+  const eventBus = new EventBus(eventDefine || {})
+  const stateStore = new StateStore(initialState || {})
   setConfig({
     isDev,
     debug,

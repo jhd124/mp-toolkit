@@ -53,12 +53,12 @@ export class ChainApp<
     return this
   }
 
-  public subscribeState(handler: (state: S) => any){
+  public subscribeState(handler: (state: S | undefined) => void){
     let unSubscribeHandler: () => void
     const { stateStore } = this
     this.lifetimesTraverse({
       onLaunch(){
-        const _handler = (state: S) => handler.call(this as TThis, state)
+        const _handler: typeof handler = (state) => handler.call(this as TThis, state)
         unSubscribeHandler = stateStore.subscribe(_handler)
       },
     })

@@ -20,7 +20,6 @@ export function createMissingWarning<T extends new (...args: any[]) => {create(.
         }, 1000)
         const originalCreate = this.create
         this.create = () => {
-          debugger
           clearTimeout(warningTimer)
           return originalCreate.call(this)
         }

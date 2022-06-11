@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "tsc "
+    "build": "tsc --project src",
+    "watch": "tsc --project src --watch"
   },
   "author": "",
   "license": "ISC",
