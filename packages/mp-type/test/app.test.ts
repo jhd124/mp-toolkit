@@ -48,4 +48,4 @@ App({
   },
 })
 
-expectType<WechatMiniprogram.App.Instance<Record<string, any>>>(getApp())
+expectType<WechatMiniprogram.App.Instance<Record<string, any>, Record<string, any>>>(getApp())

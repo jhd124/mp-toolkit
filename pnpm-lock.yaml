@@ -6,16 +6,17 @@ importers:
     specifiers:
       eslint: ^7.20.0
       eslint-config-airbnb-base: ^15.0.0
+      husky: ^8.0.1
     devDependencies:
       eslint: 7.32.0
       eslint-config-airbnb-base: 15.0.0_eslint@7.32.0
+      husky: 8.0.1
 
   packages/chain:
     specifiers:
       '@babel/core': ^7.17.10
       '@babel/preset-env': ^7.17.10
       '@babel/preset-typescript': ^7.16.7
-      '@mp-toolkit/mp-mock': workspace:*
       '@mp-toolkit/mp-type': workspace:^3.4.6
       '@types/jest': ^27.5.0
       babel-jest: ^28.1.0
@@ -23,7 +24,6 @@ importers:
       jest: ^28.1.0
       typescript: ^4.6.3
     dependencies:
-      '@mp-toolkit/mp-mock': link:../mp-mock
       '@mp-toolkit/mp-type': link:../mp-type
       typescript: 4.6.3
     devDependencies:
@@ -40,12 +40,6 @@ importers:
       '@mp-toolkit/chain': workspace:^0.0.0
     dependencies:
       '@mp-toolkit/chain': link:../chain
-
-  packages/mp-mock:
-    specifiers:
-      '@mp-toolkit/mp-type': workspace:^3.4.6
-    dependencies:
-      '@mp-toolkit/mp-type': link:../mp-type
 
   packages/mp-type:
     specifiers:
@@ -2934,6 +2928,12 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  /husky/8.0.1:
+    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /ignore/4.0.6:

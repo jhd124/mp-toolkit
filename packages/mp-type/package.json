@@ -7,7 +7,7 @@
   "scripts": {
     "test": "npm run tsd && npm run eslint",
     "tsd": "tsd",
-    "eslint": "eslint --config .eslintrc.js types/**/*.ts"
+    "eslint": "eslint types/**/*.ts"
   },
   "repository": {
     "type": "git",

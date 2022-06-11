@@ -45,7 +45,7 @@
     },
     "compileType": "miniprogram",
     "libVersion": "2.17.0",
-    "appid": "wxa0ac6f51c5a53e3e",
+    "appid": "touristappid",
     "projectname": "example",
     "debugOptions": {
         "hidedInDevtools": []
