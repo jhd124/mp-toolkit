@@ -23,8 +23,8 @@ export function setup<
     isDev = false,
     debug = false
   } = options
-  const eventBus = new EventBus(eventDefine || {})
-  const stateStore = new StateStore(initialState || {})
+  const eventBus = new EventBus(eventDefine || ({} as EventDefine))
+  const stateStore = new StateStore(initialState || ({} as StateDefine))
   setConfig({
     isDev,
     debug,

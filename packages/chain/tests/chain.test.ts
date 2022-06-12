@@ -119,7 +119,7 @@ describe('测试Chain', () => {
       data: {a: 1},
       methods: {
         onLoad,
-        onUnload
+        onUnload,
       }
     })
     .subscribeEvents('event', eventHandler)
@@ -279,7 +279,7 @@ describe('测试Chain', () => {
         attached
       },
       methods: {
-        onLoad
+        onLoad,
       }
     })
     .create()
