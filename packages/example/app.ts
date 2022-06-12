@@ -1,20 +1,11 @@
 import '@mp-toolkit/chain';
-import { chain } from './getChain';
+import { chain } from './setup-mp-toolkit';
 
 chain()
   .app({
-    onLaunch(){
-      setTimeout(() => { 
-        console.log('this', this)
-        this.$mpKit.eventBus.emit('a', 250, 's') 
-      }, 2000)
+    onLaunch(e){
+      console.log('onLaunch ', e)
     }
-  })
-  .subscribeEvents('a', function(a){
-    a
-  })
-  .subscribeEvents('a', function() {
-    this.$mpKit
   })
   .create()
 

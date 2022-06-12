@@ -1,0 +1,10 @@
+<view class="container">
+  <form bind:submit="onSubmit">
+    <input class="input" name="name" value="{{name}}"/>
+    <view class="avatar-container">
+      <image class="avatar" src="{{avatar}}"></image>
+      <button class="change-avatar-button" bind:tap="onTapChangeAvatar">更改头像</button>
+    </view>
+    <button class="confirm-revise" form-type="submit" type="primary">确定修改</button>
+  </form>
+</view>

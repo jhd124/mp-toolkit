@@ -77,9 +77,9 @@ export class ChainComponent<
       option.methods = {
         ...(methods || {}),
         onLoad(...onLoadArgs){
+          visitors.onLoad.call(this as TThis)
           // @ts-ignore
           originalOnLoad?.call(this, ...onLoadArgs)
-          visitors.onLoad.call(this as TThis)
         },
         onUnload(){
           // @ts-ignore

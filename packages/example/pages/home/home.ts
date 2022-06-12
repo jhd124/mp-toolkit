@@ -1,53 +1,49 @@
-import { chain } from "../../getChain"
-
-
-//    ^?
+import { chain } from "../../setup-mp-toolkit"
 
 chain()
   .page({
     data: {
-      s: 0
+      eventIllustration: false,
+      throttleIndicator: 0,
+      debounceIndicator: 0,
     },
     methods: {
-      onLoad(){
-        console.log('onLoad', this)
-        this.$mpKit.stateStore.state
+      onTapReviseUserInfo(){
+        wx.navigateTo({url: '/pages/user-detail/user-detail'})
+      },
+      onTapToggleEventIllustration(){
+        this.$mpKit.eventBus.emit('event', !this.data.eventIllustration)
       }
     },
   })
-  .subscribeEvents('a', function(){})
-  .subscribeEvents('a' , function(n) {
-    console.log('[[[[[[[this]]]]]]]', this)
-    this.setData({s: n})
-    // this.$mpKit.eventBus.emit('a', 1,'s')
-    // this.$mpKit.stateStore
+  .subscribeState(function(state) {
+    this.setData({
+      user: state.user
+    })
+  })
+  .subscribeEvents('event', function(b) {
+    this.setData({
+      eventIllustration: b
+    })
   })
   .throttle({
-    throttleTap: {
+    onTapThrottle: {
       method(){
-        console.log('this', this)
+        this.setData({
+          throttleIndicator: this.data.throttleIndicator + 1
+        })
       },
-      time: 1000
+      time: 500
     },
   })
   .debounce({
-    debounceLeadingTap: {
-      method(e){
-        console.log('点击了leading debounce', e)
+    onTapDebounce: {
+      method(){
+        this.setData({
+          debounceIndicator: this.data.debounceIndicator + 1
+        })
       },
       time: 500,
-      options: {
-        leading: true
-      }
     },
-    debounceTap: {
-      method(e){
-        console.log('点击了debounce', e)
-      },
-      time: 500
-    }
-  })
-  .subscribeState(function(state) {
-    console.log('subscribeState', this, state)
   })
   .create()

@@ -1,6 +1,7 @@
 {
     "pages": [
-        "pages/home/home"
+        "pages/home/home",
+        "pages/user-detail/user-detail"
     ],
     "sitemapLocation": "sitemap.json"
 }

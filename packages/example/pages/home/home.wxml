@@ -1,5 +1,21 @@
-<view bind:tap="throttleTap">Throttle</view>
-<view bind:tap="debounceTap">Debounce</view>
-<view bind:tap="debounceLeadingTap">Debounce Leading</view>
-<view>{{s}}</view>
-<!-- <c /> -->
+<view class="container">
+  <view class="group">
+    <view class="user-info">
+      <image src="{{user.avatar}}" class="avatar"/>
+      <view class="name">{{user.name}}</view>
+    </view>
+    <button class="revise-user-info-button" bind:tap="onTapReviseUserInfo">修改用户信息</button>
+  </view>
+  <view class="group row">
+    <button class="button-medium" bind:tap="onTapToggleEventIllustration">Event bus 事件</button>
+    <view>{{eventIllustration}}</view>
+  </view>
+  <view class="group row">
+    <button class="button-medium" bind:tap="onTapThrottle">节流</button>
+    <view>{{throttleIndicator}}</view>
+  </view>
+  <view class="group row">
+    <button class="button-medium" bind:tap="onTapDebounce">防抖</button>
+    <view>{{debounceIndicator}}</view>
+  </view>
+</view>

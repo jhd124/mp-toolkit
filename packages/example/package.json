@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "tsc --noEmit"
   },
   "author": "",
   "license": "ISC",
