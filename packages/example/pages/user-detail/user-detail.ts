@@ -25,7 +25,11 @@ chain()
           avatar: imageSet[index]
         })
       },
-      onSubmit(e: {detail: {value: {name: string}}}){
+    }
+  })
+  .debounce({
+    onSubmit: {
+      method: function(e: {detail: {value: {name: string}}}){
         const {detail: {value: {name}}} = e
         this.$mpKit.stateStore.dispatch({
           user: {
@@ -33,8 +37,12 @@ chain()
             avatar: this.data.avatar
           }
         })
+        wx.navigateBack()
       },
+      time: 1000,
+      options: {
+        leading: true
+      }
     }
   })
-
   .create()
