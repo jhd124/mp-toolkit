@@ -1,18 +1,19 @@
 {
   "name": "@mp-toolkit/chain",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "tsc --project src --noEmit && jest",
+    "lint": "eslint 'src/**/*.{ts,js}'",
     "build": "tsc --project src",
     "watch": "tsc --project src --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mp-toolkit/mp-type": "workspace:^3.4.6",
+    "@mp-toolkit/mp-type": "workspace:*",
     "typescript": "^4.6.3"
   },
   "devDependencies": {

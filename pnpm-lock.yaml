@@ -17,7 +17,7 @@ importers:
       '@babel/core': ^7.17.10
       '@babel/preset-env': ^7.17.10
       '@babel/preset-typescript': ^7.16.7
-      '@mp-toolkit/mp-type': workspace:^3.4.6
+      '@mp-toolkit/mp-type': workspace:*
       '@types/jest': ^27.5.0
       babel-jest: ^28.1.0
       eslint: ^7.20.0
@@ -37,9 +37,12 @@ importers:
 
   packages/example:
     specifiers:
-      '@mp-toolkit/chain': workspace:^0.0.0
+      '@mp-toolkit/chain': workspace:*
+      typescript: ^4.7.4
     dependencies:
       '@mp-toolkit/chain': link:../chain
+    devDependencies:
+      typescript: 4.7.4
 
   packages/mp-type:
     specifiers:
@@ -4728,6 +4731,12 @@ packages:
     resolution: {integrity: sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+
+  /typescript/4.7.4:
+    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}

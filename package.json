@@ -1,10 +1,13 @@
 {
   "name": "mp-toolkit",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "pnpm run -r test",
+    "lint": "pnpm run -r lint",
+    "build": "pnpm run -r build",
     "prepare": "husky install"
   },
   "repository": {
