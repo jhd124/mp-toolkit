@@ -1,2 +1,6 @@
-src
-tests
+src/
+tests/
+node_modules/
+.npmignore
+.jest.config.js
+.babel.config.js
