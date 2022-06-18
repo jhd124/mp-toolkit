@@ -25,7 +25,7 @@ Mp-toolkit 是一个原生微信小程序工具库，让原生小程序开发更
 ```typescript
 // setup-mp-toolkit.ts
 
-import { setup } from "@mp-toolkit";
+import { setup } from "@mp-toolkit/chain";
 
 const eventDefine = {
   onSearch: (keyWord: string) => {},
@@ -94,7 +94,7 @@ chain()
 
 Use the initialization CLI to create your site:
 
-npm install --save mp-toolkit
+npm install --save @mp-toolkit/chain
 
 
 ## 联系作者
