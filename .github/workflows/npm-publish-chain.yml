@@ -5,7 +5,7 @@ name: Node.js Package
 
 on:
   push:
-    tags:        
+    tags:
       - chain-v**
 
 jobs:
@@ -30,6 +30,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - run: cd packages/chain
+      - run: npm version patch
+      - run: commit -am ''
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
