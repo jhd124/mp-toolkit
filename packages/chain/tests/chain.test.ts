@@ -1,7 +1,6 @@
 import { EventBus } from "../src/tool-kit/event-bus";
 import { StateStore } from "../src/tool-kit/state-store";
 import { Chain } from '../src/chain/chain';
-import '@mp-toolkit/mp-type';
 import { wait } from "./utils";
 
 describe('测试Chain', () => {

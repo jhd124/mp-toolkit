@@ -12,11 +12,8 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@mp-toolkit/mp-type": "workspace:*",
-    "typescript": "^4.6.3"
-  },
   "devDependencies": {
+    "typescript": "^4.6.3",
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
