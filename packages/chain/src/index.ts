@@ -1,3 +1,3 @@
-/// <reference path="../../mp-type/index.d.ts" />
+import '@mp-toolkit/mp-type'
 
 export { setup } from './chain/setup'
