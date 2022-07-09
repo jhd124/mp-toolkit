@@ -2,5 +2,5 @@ src/
 tests/
 node_modules/
 .npmignore
-.jest.config.js
-.babel.config.js
+jest.config.js
+babel.config.js

@@ -12,11 +12,13 @@
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@mp-toolkit/mp-type": "^1.0.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "@babel/preset-typescript": "^7.16.7",
-    "@mp-toolkit/mp-type": "^1.0.0",
     "@types/jest": "^27.5.0",
     "babel-jest": "^28.1.0",
     "eslint": "^7.20.0",
